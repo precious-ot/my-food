@@ -1,203 +1,257 @@
-import React from "react"
 import { useState } from "react";
-import home1 from './Assets/home-img.png'
-import lastimg from './Assets/last-image.jpeg'
+import { motion } from "framer-motion";
+import home1 from "./Assets/home-img.png";
+import lastimg from "./Assets/last-image.jpeg";
+import SiteNav from "./SiteNav";
+
+const openingHours = [
+  ["Sunday", "Closed"],
+  ["Monday", "9am - 10pm"],
+  ["Tuesday", "9am - 10pm"],
+  ["Wednesday", "9am - 10pm"],
+  ["Thursday", "9am - 10pm"],
+  ["Friday", "9am - 10pm"],
+  ["Saturday", "9am - 2pm"],
+];
+
+const locations = [
+  "LA, Galuxy, Ave 122",
+  "New york, Ave 122",
+  "Colorado, Ave 122",
+  "Washington, Ave 122",
+];
 
 export default function Contact() {
-    return (
-        <div className="bg-slate-950">
-        <div className="py-5 px-5 sm:px-10 text-slate-300">
-        <div className="grid justify-center place-items-center pb-8">
-            <h1 className="font-bold text-red-900 text-2xl mt-4 mb-2 text-center">Get In Touch</h1>
-            <h2 className="font-bold text-4xl text-center mt-4 mb-6">Make A Reservation</h2>
-            <hr className="w-30 h-[3px] rounded-lg bg-red-900 text-red-900 text-center"/>
+  return (
+    <main className="contact-page">
+      <SiteNav />
+      <div className="contact-main">
+        <motion.header
+          className="page-intro"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <span className="eyebrow">We would love to hear from you</span>
+          <h1 className="page-intro__title">Get In Touch</h1>
+          <p className="page-intro__copy">
+            Make a reservation and join us for an unforgettable meal.
+          </p>
+        </motion.header>
+
+        <div className="contact-layout">
+          <motion.section
+            initial={{ opacity: 0, x: -18 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.45, delay: 0.12 }}
+          >
+            <h2 className="contact-section-title">Make A Reservation</h2>
+            <p className="contact-section-copy">
+              Book a table and let us take care of the rest.
+            </p>
+            <h3 className="menu-section__title">Book a Table</h3>
+            <Userform />
+          </motion.section>
+
+          <motion.section
+            className="hours-card"
+            style={{ backgroundImage: `url(${home1})` }}
+            initial={{ opacity: 0, x: 18 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.45, delay: 0.2 }}
+          >
+            <h2 className="hours-card__title">Opening Hours</h2>
+            {openingHours.map(([day, hours]) => (
+              <div className="hours-row" key={day}>
+                <span className="hours-row__day">{day}</span>
+                <span className="hours-row__line" />
+                <span className="hours-row__time">{hours}</span>
+              </div>
+            ))}
+          </motion.section>
         </div>
-        <div className="flex flex-col-reverse mt-16 lg:grid lg:grid-cols-2 sm:pla-items-center gap-8">
-        <div>
-            <h1 className="font-bold text-4xl text-center mt-4 mb-6">Book a Table</h1>
-                <Userform />
-        </div>
-        <div className="py-8 px-5 border-3 w-full border-slate-300  bg-cover " style={{backgroundImage: `url(${home1})`}}>
-            <h1 className="text-2xl font-bold ">Opening Hours</h1>
-            <div className="mt-10 grid gap-8">
-                <div className="flex flex-row gap-2 justify-center place-items-center">
-                    <p className="text-lg font-semibold uppercase">Sunday</p>
-                    <hr className="bg-white text-slate-300 h-0.1 w-full "/>
-                    <p className="text-red-900 text-xl font-semibold w-full sm:basis-3xs">Closed</p>
+
+        <motion.section
+          className="contact-story"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.5 }}
+        >
+          <img
+            src={lastimg}
+            alt="A freshly prepared burger from our kitchen"
+            className="contact-story__image"
+          />
+          <div>
+            <span className="eyebrow">Come dine with us</span>
+            <h2 className="contact-section-title">Where It All Begins</h2>
+            <h3 className="hours-card__title">Locations</h3>
+            <div className="location-grid">
+              {locations.map((location) => (
+                <div className="location-item" key={location}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+                    aria-hidden="true"
+                  >
+                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
+                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                  </svg>
+                  <span>{location}</span>
                 </div>
-                <div className="flex flex-row gap-2 justify-center place-items-center">
-                    <p className="text-lg font-semibold uppercase">Monday</p>
-                    <hr className="bg-white text-slate-300 h-0.1 w-full"/>
-                    <p className="text-slate-300 text-lg font-semibold w-full sm:basis-3xs">9am - 10pm</p>
-                </div>
-                <div className="flex gap-2 justify-center place-items-center">
-                    <p className="text-lg font-semibold uppercase">Tuesday</p>
-                    <hr className="bg-white text-slate-300 h-0.1 w-full"/>
-                    <p className="text-slate-300 text-lg font-semibold w-full sm:basis-3xs">9am - 10pm</p>
-                </div>
-                <div className="flex flex-row gap-2 justify-center place-items-center">
-                    <p className="text-lg font-semibold uppercase">Wednesday</p>
-                    <hr className="bg-white text-slate-300 h-0.1 w-20 sm:w-full"/>
-                    <p className="text-slate-300 text-lg font-semibold text-start w-full sm:basis-3xs">9am - 10pm</p>
-                </div>
-                <div className="flex flex-row gap-2 justify-center place-items-center">
-                    <p className="text-lg font-semibold uppercase">Thursday</p>
-                    <hr className="bg-white text-slate-300 h-0.1 w-20 sm:w-full"/>
-                    <p className="text-slate-300 text-lg font-semibold w-full sm:basis-3xs">9am - 10pm</p>
-                </div>
-                <div className="flex flex-row gap-2 justify-center place-items-center">
-                    <p className="text-lg font-semibold uppercase">Friday</p>
-                    <hr className="bg-white text-slate-300 h-0.1 w-full"/>
-                    <p className="text-slate-300 text-lg font-semibold w-full sm:basis-3xs">9am - 10pm</p>
-                </div>
-                <div className="flex flex-row gap-2 justify-center place-items-center">
-                    <p className="text-lg font-semibold uppercase">Saturday</p>
-                    <hr className="bg-white text-slate-300 h-0.1 w-full"/>
-                    <p className="text-slate-300 text-lg font-semibold w-full sm:basis-3xs">9am - 2pm</p>
-                </div>
+              ))}
             </div>
-        </div>
-        </div>
-        </div>
-        <div className="py-10 mt-10 px-5 sm:px-10 text-slate-300">
-            <h1 className="text-4xl text-center mb-8 font-bold ">Where It All Begins</h1>
-            <div className="pt-8 gap-5 sm:gap-10 grid md:grid-cols-2">
-                <div>
-                <img src={lastimg} alt="burger" className="rounded-lg"/>
-            </div>
-            <div>
-                <div className="mt-8">
-                    <h1 className="text-2xl font-semibold">Locations</h1>
-                <div className="grid sm:grid-cols-2 gap-5 mt-8">
-            <div className="flex place-items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
-               <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
-               <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                </svg>
-                <span className="text-semibold">LA, Galuxy, Ave 122</span>
-                </div>
-            <div className="flex place-items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
-               <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
-               <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                </svg>
-                <span className="text-semibold">New york, Ave 122</span>
-                </div>
-            <div className="flex place-items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
-               <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
-               <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                </svg>
-                <span className="text-semibold">Colorado, Ave 122</span>
-                </div>
-            <div className="flex place-items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
-               <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
-               <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                </svg>
-                <span className="text-semibold">Washington, Ave 122</span>
-                </div>
-                    </div>
-                </div>
-                <p className="pt-10 ">Sit amet purus gravida quis blandit turpis cursus in hac. 
-                    Adipiscing bibendum est ultricies integer quis auctor elit. 
-                    Hendrerit dolor magna eget est lorem ipsum dolor sit amet.</p>
-            </div>
-            </div>
-            
-        </div>
-         <div className="text-white text-center bg-slate-900 sticky bottom-0 py-4 bottom-0 w-full left-0">
-                &copy; {new Date().getFullYear()} The Luxury Resturant. All rights reserved.
-            </div>
-        </div>
-    )
+            <p className="contact-story__copy">
+              Sit amet purus gravida quis blandit turpis cursus in hac.
+              Adipiscing bibendum est ultricies integer quis auctor elit.
+              Hendrerit dolor magna eget est lorem ipsum dolor sit amet.
+            </p>
+          </div>
+        </motion.section>
+      </div>
+      <footer className="site-footer">
+        &copy; {new Date().getFullYear()} The Luxury Restaurant. All rights
+        reserved.
+      </footer>
+    </main>
+  );
 }
 
 export function Userform() {
-    const [name, setName] = useState({
-        surName:'', date:'', email:'', number:'', person:'', time:''
-    })
-    const [error, setError] = useState({});
-    const [success, setSuccess] = useState(false);
-    const [input, setInput] = useState(true);
+  const [name, setName] = useState({
+    surName: "",
+    date: "",
+    email: "",
+    number: "",
+    person: "",
+    time: "",
+  });
+  const [error, setError] = useState({});
+  const [success, setSuccess] = useState(false);
+  const [input, setInput] = useState(true);
 
-    const validate = () => {
-        const newErrors = {};
+  const validate = () => {
+    const newErrors = {};
 
-        if(!name.surName || name.surName.trim() ==='') newErrors.surName = 'Name is required';
-        if(!name.date || name.date.trim() ==='') newErrors.date = 'Date is required';
-        if(!name.number || name.number.trim() ==='') newErrors.number = 'Number is required';
-        if(!name.person || name.person.trim() ==='') newErrors.person = 'Persons is required';
-        if(!name.time || name.time.trim() ==='') newErrors.time = 'Time is required';
-        if(!name.email || name.email.trim() ==='') {
-            newErrors.email = 'Email is required';
-        } else if(!/\s+/.test(name)) {
-            newErrors.email = 'Email is invalid';
-        }
-
-        return newErrors;
+    if (!name.surName.trim()) newErrors.surName = "Name is required";
+    if (!name.date) newErrors.date = "Date is required";
+    if (!name.number.trim()) newErrors.number = "Number is required";
+    if (!name.person.trim()) newErrors.person = "Persons is required";
+    if (!name.time) newErrors.time = "Time is required";
+    if (!name.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(name.email)) {
+      newErrors.email = "Email is invalid";
     }
 
-    const subHandler = (e) => {
-        e.preventDefault();
-        const validationErrors = validate();
-        console.log('validation errors:', validationErrors);
-        console.log('type of validationErrors:', typeof validationErrors);
+    return newErrors;
+  };
 
-        if(Object.keys(validationErrors).length > 0) {
-            setError(validationErrors);
-            setSuccess(false);
-        } else {
-            setError({});
-            setSuccess(true);
-            setInput(false)
-        }
-        
+  const updateField = (field, value) => {
+    setName((currentName) => ({ ...currentName, [field]: value }));
+    setError((currentErrors) => ({ ...currentErrors, [field]: "" }));
+  };
+
+  const subHandler = (event) => {
+    event.preventDefault();
+    const validationErrors = validate();
+
+    if (Object.keys(validationErrors).length > 0) {
+      setError(validationErrors);
+      setSuccess(false);
+    } else {
+      setError({});
+      setSuccess(true);
+      setInput(false);
     }
+  };
 
-    return(
-        <div className="">
-        {input && 
-<form className="grid sm:justify-center mt-20" onSubmit={subHandler}>
-        <div className="flex flex-col sm:grid sm:grid-cols-2 gap-10">
-        <div>
-            <label className="font-semibold text-slate-300">Name</label> <br/>
-            <input className="border-slate-300 border-2 rounded-sm w-full mt-2 px-3 py-2" type="name"  name="surName" value={name.surName} onChange={e => {setName({...name, surName: e.target.value}); setError({...error, surName: ''})}}/>
-            {error.surName && <p className="text-red-800 text-sm mt-2">{error.surName}</p>}
-        </div>
-        <div>
-            <label className="font-semibold text-slate-300">Email</label> <br/>
-            <input className="border-slate-300 border-2 rounded-sm w-full mt-2 px-3 py-2" name="email" type="email" value={name.email} onChange={e => {setName({...name, email: e.target.value}); setError({...error, email: ''})}}/>
-            {error.email && <p className="text-red-800 text-sm mt-2">{error.email}</p>}
-        </div>
-        <div>
-            <label className="font-semibold text-slate-300">Number</label> <br/>
-            <input className="border-slate-300 border-2 rounded-sm w-full mt-2 px-3 py-2" name="number" type="tel" value={name.number} onChange={e => {setName({...name, number: e.target.value}); setError({...error, number: ''})}}/>
-            {error.number && <p className="text-red-800 text-sm mt-2">{error.number}</p>}
-        </div>
-        
-        <div>
-            <label className="font-semibold text-slate-300">Person</label> <br/>
-            <input className="border-slate-300 border-2 rounded-sm mt-2 px-3 w-full py-2" name="person" type="number" value={name.person} onChange={e => {setName({...name, person: e.target.value}); setError({...error, person: ''})}}/>
-            {error.person && <p className="text-red-800 text-sm mt-2">{error.person}</p>}
-        </div>
-        <div>
-            <label className="font-semibold text-slate-300">Date</label> <br/>
-            <input className="border-slate-300 border-2 rounded-sm w-full mt-2 px-3 py-2" name="date" value={name.date} onChange={e => {setName({...name, date: e.target.value}); setError({...error, date: ''})}} type="date"/>
-            {error.date && <p className="text-red-800 text-sm mt-2">{error.date}</p>}
-        </div>
-        <div>
-            <label className="font-semibold text-slate-300">Time</label> <br/>
-            <input className="border-slate-300 border-2 rounded-sm w-full mt-2 px-3 py-2" name="time" type="time" value={name.time} onChange={e => {setName({...name, time: e.target.value}); setError({...error, time: ''})}}/>
-            {error.time && <p className="text-red-800 text-sm mt-2">{error.time}</p>}
-        </div>
-      </div>
-        <button className="bg-slate-900 text-white px-5 py-2 font-semibold mt-10">submit</button>
+  const fields = [
+    { key: "surName", label: "Name", type: "text" },
+    { key: "email", label: "Email", type: "email" },
+    { key: "number", label: "Number", type: "tel" },
+    { key: "person", label: "Person", type: "number", min: 1 },
+    { key: "date", label: "Date", type: "date" },
+    { key: "time", label: "Time", type: "time" },
+  ];
 
-        
-      </form>
-        }
-        {success && 
-        <div className="text-slate-300 font-semibold text-lg leading-8">{name.surName} you have successfuly booked a table with {name.person} people at The Luxury Restaurant on {name.date} by {name.time}, an email will be sent to {name.email}.
-        Thank you for your reservation </div>
-        }
-      </div>
-    )
+  return (
+    <div>
+      {input && (
+        <motion.form
+          className="reservation-form"
+          onSubmit={subHandler}
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.07 } },
+          }}
+        >
+          {fields.map((field) => (
+            <motion.div
+              className="form-field"
+              key={field.key}
+              variants={{
+                hidden: { opacity: 0, y: 12 },
+                visible: { opacity: 1, y: 0 },
+              }}
+            >
+              <label htmlFor={`reservation-${field.key}`}>{field.label}</label>
+              <input
+                id={`reservation-${field.key}`}
+                name={field.key}
+                type={field.type}
+                min={field.min}
+                value={name[field.key]}
+                onChange={(event) => updateField(field.key, event.target.value)}
+                aria-invalid={Boolean(error[field.key])}
+                aria-describedby={
+                  error[field.key] ? `${field.key}-error` : undefined
+                }
+              />
+              {error[field.key] && (
+                <p className="form-error" id={`${field.key}-error`}>
+                  {error[field.key]}
+                </p>
+              )}
+            </motion.div>
+          ))}
+          <motion.button className="reservation-submit" type="submit">
+            Submit reservation
+          </motion.button>
+        </motion.form>
+      )}
+      <AnimateSuccess success={success} name={name} />
+    </div>
+  );
+}
 
+function AnimateSuccess({ success, name }) {
+  return (
+    <motion.div
+      className="reservation-success"
+      initial={false}
+      animate={
+        success
+          ? { opacity: 1, height: "auto", marginTop: 30 }
+          : { opacity: 0, height: 0, marginTop: 0 }
+      }
+      transition={{ duration: 0.3 }}
+      aria-live="polite"
+      style={{ overflow: "hidden" }}
+    >
+      {success && (
+        <>
+          {name.surName} you have successfully booked a table with {name.person}{" "}
+          people at The Luxury Restaurant on {name.date} by {name.time}, an
+          email will be sent to {name.email}. Thank you for your reservation
+        </>
+      )}
+    </motion.div>
+  );
 }
